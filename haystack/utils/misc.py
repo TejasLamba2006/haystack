@@ -50,11 +50,13 @@ def expand_page_range(page_range: list[str | int]) -> list[int]:
     """
     Takes a list of page numbers and ranges and expands them into a list of page numbers.
 
+    Duplicate page numbers are deduplicated while preserving the order of first appearance.
+
     For example, given a page_range=['1-3', '5', '8', '10-12'] the function will return [1, 2, 3, 5, 8, 10, 11, 12]
 
     :param page_range: List of page numbers and ranges
     :returns:
-        An expanded list of page integers
+        An expanded list of unique page integers in order of first appearance
     :raises ValueError:
         If any element is not a valid integer or a range string in the format `'start-end'`.
 
@@ -90,7 +92,7 @@ def expand_page_range(page_range: list[str | int]) -> list[int]:
     if not expanded_page_range:
         raise ValueError("No valid page numbers or ranges found in the input list")
 
-    return expanded_page_range
+    return list(dict.fromkeys(expanded_page_range))
 
 
 @overload

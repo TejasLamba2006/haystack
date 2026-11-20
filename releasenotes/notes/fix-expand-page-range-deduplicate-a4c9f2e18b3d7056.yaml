@@ -1,0 +1,4 @@
+---
+fixes:
+  - |
+    ``expand_page_range`` now deduplicates repeated and overlapping page numbers while preserving first-seen order, preventing duplicate page images in ``PDFToImageContent``.

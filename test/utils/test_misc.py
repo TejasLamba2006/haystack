@@ -211,3 +211,12 @@ class TestExpandPageRange:
 
     def test_equal_start_end_is_valid(self):
         assert expand_page_range(["3-3"]) == [3]
+
+    def test_duplicate_integers_deduplicated(self):
+        assert expand_page_range([1, 1]) == [1]
+
+    def test_overlapping_string_ranges_deduplicated(self):
+        assert expand_page_range(["1-3", "2-4"]) == [1, 2, 3, 4]
+
+    def test_mixed_duplicates_preserve_order(self):
+        assert expand_page_range([3, "1-3", 2]) == [3, 1, 2]

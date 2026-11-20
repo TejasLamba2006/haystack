@@ -108,3 +108,11 @@ class TestPDFToImageContent:
         results = converter.run(sources=[byte_stream])
 
         assert results["image_contents"] == []
+
+    def test_run_with_duplicate_page_range(self) -> None:
+        file_path = "./test/test_files/pdf/sample_pdf_1.pdf"
+        converter = PDFToImageContent(page_range=[1, 1])
+        results = converter.run(sources=[file_path])
+
+        assert len(results["image_contents"]) == 1
+        assert results["image_contents"][0].meta["page_number"] == 1
